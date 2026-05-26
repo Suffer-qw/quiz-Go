@@ -1,0 +1,52 @@
+{{define "pages/admin_test_new.html"}}
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Админ · Новый тест · Quiz-Go</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <a class="brand" href="/">Quiz-Go</a>
+        <nav class="nav">
+          <a href="/tests">Тесты</a>
+          <a href="/history">История</a>
+          <a href="/admin/tests">Админ</a>
+          <form class="inline" method="post" action="/logout">
+            <button class="linklike" type="submit">Выйти ({{.User.Username}})</button>
+          </form>
+        </nav>
+      </div>
+    </div>
+    <main class="container">
+      <div class="card">
+        <h1>Новый тест</h1>
+        <p class="muted">Заполните JSON и нажмите “Создать”. У каждого вопроса — ровно 4 варианта и correctIndex 0..3.</p>
+
+        <div class="form">
+          <label>JSON
+            <textarea id="adminNewTestJson" rows="18">{
+  "title": "Новый тест",
+  "description": "Описание (опционально)",
+  "questions": [
+    { "text": "Вопрос 1", "options": ["A","B","C","D"], "correctIndex": 0 },
+    { "text": "Вопрос 2", "options": ["A","B","C","D"], "correctIndex": 1 }
+  ]
+}</textarea>
+          </label>
+          <div class="actions">
+            <button class="btn" id="adminCreateTestBtn" type="button">Создать</button>
+            <a class="btn secondary" href="/admin/tests">Назад</a>
+          </div>
+          <div id="adminCreateTestMsg" class="muted"></div>
+        </div>
+      </div>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
+{{end}}
+

@@ -1,0 +1,59 @@
+{{define "pages/test_take.html"}}
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{{.Test.Title}} · Quiz-Go</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <a class="brand" href="/">Quiz-Go</a>
+        <nav class="nav">
+          <a href="/tests">Тесты</a>
+          <a href="/history">История</a>
+          {{if eq .User.Role "admin"}}<a href="/admin/tests">Админ</a>{{end}}
+          <form class="inline" method="post" action="/logout">
+            <button class="linklike" type="submit">Выйти ({{.User.Username}})</button>
+          </form>
+        </nav>
+      </div>
+    </div>
+    <main class="container">
+      <div class="card">
+        <div class="row">
+          <div>
+            <h1>{{.Test.Title}}</h1>
+            {{if .Test.Description}}<p class="muted">{{.Test.Description}}</p>{{end}}
+            <p class="muted">Вопросов: <b>{{len .Questions}}</b>. В каждом — 4 варианта ответа.</p>
+          </div>
+          <button class="btn" id="submitBtn" type="button">Завершить</button>
+        </div>
+
+        <div id="quiz" data-test-id="{{.Test.ID}}">
+          {{range .Questions}}
+            <div class="qcard" data-qid="{{.ID}}">
+              <div class="qcard__q">
+                <span class="badge">#{{.Position}}</span>
+                <div class="qtext">{{.Text}}</div>
+              </div>
+              <div class="opts">
+                <label class="opt"><input type="radio" name="q{{.ID}}" value="0" /> <span>{{index .Options 0}}</span></label>
+                <label class="opt"><input type="radio" name="q{{.ID}}" value="1" /> <span>{{index .Options 1}}</span></label>
+                <label class="opt"><input type="radio" name="q{{.ID}}" value="2" /> <span>{{index .Options 2}}</span></label>
+                <label class="opt"><input type="radio" name="q{{.ID}}" value="3" /> <span>{{index .Options 3}}</span></label>
+              </div>
+            </div>
+          {{end}}
+        </div>
+
+        <div id="result" class="result hidden"></div>
+      </div>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
+{{end}}
+

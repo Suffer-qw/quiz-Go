@@ -1,0 +1,46 @@
+{{define "pages/history.html"}}
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>История · Quiz-Go</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <a class="brand" href="/">Quiz-Go</a>
+        <nav class="nav">
+          <a href="/tests">Тесты</a>
+          <a href="/history">История</a>
+          {{if eq .User.Role "admin"}}<a href="/admin/tests">Админ</a>{{end}}
+          <form class="inline" method="post" action="/logout">
+            <button class="linklike" type="submit">Выйти ({{.User.Username}})</button>
+          </form>
+        </nav>
+      </div>
+    </div>
+    <main class="container">
+      <div class="card">
+        <h1>История (последние 10 тестов)</h1>
+        {{if not .Items}}
+          <p class="muted">Пока нет завершённых попыток.</p>
+        {{else}}
+          <div class="list">
+            {{range .Items}}
+              <div class="listitem">
+                <div class="listitem__title">{{.TestTitle}}</div>
+                <div class="muted">Результат: <b>{{.Correct}}/{{.Total}}</b> ({{.Percent}}%)</div>
+                <div class="muted small">Завершено: {{.FinishedAt}}</div>
+              </div>
+            {{end}}
+          </div>
+        {{end}}
+      </div>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
+{{end}}
+

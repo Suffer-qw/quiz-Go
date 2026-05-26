@@ -1,0 +1,45 @@
+{{define "pages/admin_tests.html"}}
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Админ · Тесты · Quiz-Go</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <a class="brand" href="/">Quiz-Go</a>
+        <nav class="nav">
+          <a href="/tests">Тесты</a>
+          <a href="/history">История</a>
+          <a href="/admin/tests">Админ</a>
+          <form class="inline" method="post" action="/logout">
+            <button class="linklike" type="submit">Выйти ({{.User.Username}})</button>
+          </form>
+        </nav>
+      </div>
+    </div>
+    <main class="container">
+      <div class="card">
+        <div class="row">
+          <h1>Админ: тесты</h1>
+          <a class="btn" href="/admin/tests/new">+ Новый тест</a>
+        </div>
+        <p class="muted">Сейчас только создание новых тестов (по 4 варианта на вопрос).</p>
+        <div class="list">
+          {{range .Tests}}
+            <div class="listitem">
+              <div class="listitem__title">#{{.ID}} — {{.Title}}</div>
+              {{if .Description}}<div class="muted">{{.Description}}</div>{{end}}
+            </div>
+          {{end}}
+        </div>
+      </div>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
+{{end}}
+

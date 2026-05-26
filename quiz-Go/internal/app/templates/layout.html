@@ -1,0 +1,36 @@
+{{define "layout.html"}}
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <a class="brand" href="/">Quiz-Go</a>
+        <nav class="nav">
+          {{if .User}}
+            <a href="/tests">Тесты</a>
+            <a href="/history">История</a>
+            {{if eq .User.Role "admin"}}<a href="/admin/tests">Админ</a>{{end}}
+            <form class="inline" method="post" action="/logout">
+              <button class="linklike" type="submit">Выйти ({{.User.Username}})</button>
+            </form>
+          {{else}}
+            <a href="/login">Вход</a>
+            <a href="/register">Регистрация</a>
+          {{end}}
+        </nav>
+      </div>
+    </div>
+    <main class="container">
+      {{template "body" .}}
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
+{{end}}
+

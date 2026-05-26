@@ -1,0 +1,50 @@
+{{define "pages/tests.html"}}
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Каталог тестов · Quiz-Go</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <a class="brand" href="/">Quiz-Go</a>
+        <nav class="nav">
+          <a href="/tests">Тесты</a>
+          <a href="/history">История</a>
+          {{if eq .User.Role "admin"}}<a href="/admin/tests">Админ</a>{{end}}
+          <form class="inline" method="post" action="/logout">
+            <button class="linklike" type="submit">Выйти ({{.User.Username}})</button>
+          </form>
+        </nav>
+      </div>
+    </div>
+    <main class="container">
+      <div class="card">
+        <div class="row">
+          <h1>Каталог тестов</h1>
+          {{if eq .User.Role "admin"}}
+            <a class="btn secondary" href="/admin/tests/new">+ Новый тест</a>
+          {{end}}
+        </div>
+        {{if not .Tests}}
+          <p class="muted">Пока нет тестов.</p>
+        {{else}}
+          <div class="list">
+            {{range .Tests}}
+              <a class="listitem" href="/tests/{{.ID}}">
+                <div class="listitem__title">{{.Title}}</div>
+                {{if .Description}}<div class="muted">{{.Description}}</div>{{end}}
+              </a>
+            {{end}}
+          </div>
+        {{end}}
+      </div>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
+{{end}}
+

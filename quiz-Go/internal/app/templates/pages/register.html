@@ -1,0 +1,40 @@
+{{define "pages/register.html"}}
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Регистрация · Quiz-Go</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <a class="brand" href="/">Quiz-Go</a>
+        <nav class="nav">
+          <a href="/login">Вход</a>
+          <a href="/register">Регистрация</a>
+        </nav>
+      </div>
+    </div>
+    <main class="container">
+      <div class="card narrow">
+        <h1>Регистрация</h1>
+        {{if .Error}}<div class="alert">{{.Error}}</div>{{end}}
+        <form method="post" action="/register" class="form">
+          <label>Логин
+            <input name="username" autocomplete="username" required minlength="3" />
+          </label>
+          <label>Пароль
+            <input name="password" type="password" autocomplete="new-password" required minlength="6" />
+          </label>
+          <button class="btn" type="submit">Создать аккаунт</button>
+        </form>
+        <p class="muted">Роль нового пользователя: <b>user</b>.</p>
+      </div>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
+{{end}}
+
